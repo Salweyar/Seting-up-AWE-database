@@ -27,42 +27,76 @@ client.connect((err) => {
     .toArray(function (err, result) {
       if (err) throw err;
 
-      for (i = 0; i < result.length; i++) {
-        // console.log(result[i].id);
-        var url =
-          "https://coachandrewmoss.jobboard.io/api/v1/profiles/" + result[i].id;
-        var headers = {
-          "Content-Type": "application/json",
-          "X-Api-Key": process.env.X_API_KEY,
-          Accept: "*/*",
-        };
-        // console.log(url);
-        fetch(url, { method: "GET", headers: headers })
-          .then((res) => {
-            if (res.ok) {
-              // client
-              //   .db("AWE")
-              //   .collection("Test")
-              //   .insertOne(res.json(), function (err, res) {
-              //     if (err) throw err;
-              //     console.log(
-              //       "Number of documents inserted: " + res.insertedCount
-              //     );
-              //   });
+      let current = 1;
+      let index = 1;
 
-              return res.json();
-            } else {
-              return "Not found";
-            }
-          })
-          .then((json) => {
-            console.log(json);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
+      var data = async function () {
+        current--;
+        while (current <= index) {
+          current++;
+          var i = 0;
+          while (i < result.length) {
+            var url =
+              "https://coachandrewmoss.jobboard.io/api/v1/profiles/" +
+              result[i].id;
+            var headers = {
+              "Content-Type": "application/json",
+              "X-Api-Key": process.env.X_API_KEY,
+              Accept: "*/*",
+            };
 
+            await fetch(url, { method: "GET", headers: headers })
+              .then((res) => {
+                return res.json();
+                // client.db("AWE").collection("Test").remove({});
+                // client.db("AWE").collection("Test").insertOne({ d });
+              })
+              .then((json) => {
+                console.log(json);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+            i++;
+          }
+        }
+      };
+
+      data();
       client.close();
+
+      // for (i = 0; i < result.length; i++) {
+      //   // console.log(result[i].id);
+      //   var url =
+      //     "https://coachandrewmoss.jobboard.io/api/v1/profiles/" + result[i].id;
+      //   var headers = {
+      //     "Content-Type": "application/json",
+      //     "X-Api-Key": process.env.X_API_KEY,
+      //     Accept: "*/*",
+      //   };
+
+      //   // fetch(url, { method: "GET", headers: headers })
+      //   //   .then((res) => {
+      //   //     // if (res.ok) {
+      //   //     // client
+      //   //     //   .db("AWE")
+      //   //     //   .collection("Test")
+      //   //     //   .insertOne(res.json(), function (err, res) {
+      //   //     //     if (err) throw err;
+      //   //     //     console.log(
+      //   //     //       "Number of documents inserted: " + res.insertedCount
+      //   //     //     );
+      //   //     //   });
+
+      //   //     return res.status;
+      //   //     // }
+      //   //   })
+      //   //   .then((json) => {
+      //   //     console.log(json);
+      //   //   })
+      //   //   .catch((err) => {
+      //   //     console.log(err);
+      //   //   });
+      // }
     });
 });
