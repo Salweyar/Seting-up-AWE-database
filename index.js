@@ -58,10 +58,10 @@ client.connect((err) => {
                   // client.db("AWE").collection("Test").remove({});
                   client
                     .db("AWE")
-                    .collection("Test")
-                    .insertOne({ profile }, function (err, result) {
+                    .collection("profiles")
+                    .updateOne({}, { $set: profile }, function (err, result) {
                       console.log(err);
-                      console.log(result);
+                      console.log("1 document updated");
                       client.close();
                     });
                 });
