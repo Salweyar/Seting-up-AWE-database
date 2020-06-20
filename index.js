@@ -27,43 +27,57 @@ client.connect((err) => {
     .toArray(function (err, result) {
       if (err) throw err;
 
-      let current = 1;
-      let index = 1;
-
       var data = async function () {
-        current--;
-        while (current <= index) {
-          current++;
-          var i = 0;
-          while (i < result.length) {
-            var url =
-              "https://coachandrewmoss.jobboard.io/api/v1/profiles/" +
-              result[i].id;
-            var headers = {
-              "Content-Type": "application/json",
-              "X-Api-Key": process.env.X_API_KEY,
-              Accept: "*/*",
-            };
+        var i = 0;
+        while (i < result.length) {
+          var url =
+            "https://coachandrewmoss.jobboard.io/api/v1/profiles/" +
+            result[i].id;
+          var headers = {
+            "Content-Type": "application/json",
+            "X-Api-Key": process.env.X_API_KEY,
+            Accept: "*/*",
+          };
 
-            await fetch(url, { method: "GET", headers: headers })
-              .then((res) => {
-                return res.json();
-                // client.db("AWE").collection("Test").remove({});
-                // client.db("AWE").collection("Test").insertOne({ d });
-              })
-              .then((json) => {
-                console.log(json);
-              })
-              .catch((err) => {
-                console.log(err);
+          await fetch(url, { method: "GET", headers: headers })
+            .then((res) => {
+              var d = res.json();
+              d.then((data) => {
+                var profile = data.profile;
+
+                var MongoClient = require("mongodb").MongoClient;
+                const uri = process.env.URI;
+                const client = new MongoClient(uri, {
+                  useNewUrlParser: true,
+                  useUnifiedTopology: true,
+                });
+
+                client.connect((err) => {
+                  if (err) throw err;
+
+                  // client.db("AWE").collection("Test").remove({});
+                  client
+                    .db("AWE")
+                    .collection("Test")
+                    .insertOne({ profile }, function (err, result) {
+                      console.log(err);
+                      console.log(result);
+                      client.close();
+                    });
+                });
               });
-            i++;
-          }
+
+              // client.db("AWE").collection("Test").remove({});
+              // client.db("AWE").collection("Test").insertOne({ d });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+          i++;
         }
       };
 
       data();
-      client.close();
 
       // for (i = 0; i < result.length; i++) {
       //   // console.log(result[i].id);
