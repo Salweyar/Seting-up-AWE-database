@@ -24,14 +24,14 @@ Helping a friend to test the api from [jobboard](https://www.jobboard.io/) and s
    npm install
    ```
 
-2. create .env file and add
+3. create .env file and add
 
-  ```bash
-  URI = get the mongodb uri from your account to connect
-  X_API_KEY =  add key for grant permission so you can fetch data from api. (Goes in header)
-  ``` 
+      ```bash
+      URI = get the mongodb uri from your account to connect
+      X_API_KEY =  add key for grant permission so you can fetch data from api. (Goes in header)
+      ``` 
   
-3. Open the terminal and RUN: 
+4. Open the terminal and RUN: 
 
     ```bash
     node index.js
