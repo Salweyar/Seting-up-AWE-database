@@ -33,6 +33,6 @@ Helping a friend to test the api from [jobboard](https://www.jobboard.io/) and s
   
 3. Open the terminal and RUN: 
 
- ```bash
-   node index.js
-   ```
+    ```bash
+    node index.js
+    ```
