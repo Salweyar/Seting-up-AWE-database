@@ -19,13 +19,13 @@ const client = new MongoClient(uri, {
   useUnifiedTopology: true,
 });
 client.connect((err) => {
-  if (err) throw err;
+  console.log(err);
   const collection = client
     .db("AWE")
-    .collection("profiles")
+    .collection("Test")
     .find({}, { _id: 1 })
     .toArray(function (err, result) {
-      if (err) throw err;
+      console.log(err);
 
       var data = async function () {
         var i = 0;
@@ -53,15 +53,15 @@ client.connect((err) => {
                 });
 
                 client.connect((err) => {
-                  if (err) throw err;
+                  console.log(err);
 
                   // client.db("AWE").collection("Test").remove({});
                   client
                     .db("AWE")
                     .collection("profiles")
-                    .updateOne({}, { $set: profile }, function (err, result) {
+                    .insertOne(profile, function (err, result) {
                       console.log(err);
-                      console.log("1 document updated");
+                      console.log(result);
                       client.close();
                     });
                 });
