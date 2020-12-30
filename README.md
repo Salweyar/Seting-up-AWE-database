@@ -14,7 +14,7 @@ Helping a friend to test the api from [jobboard](https://www.jobboard.io/) and s
 1. Clone this repo
 
     ```bash
-   git clone https://github.com/Salweyar/react-native_productApp.git
+   git clone https://github.com/Salweyar/Seting-up-AWE-database.git
    ```
    
 2. Install dependencies
@@ -24,7 +24,7 @@ Helping a friend to test the api from [jobboard](https://www.jobboard.io/) and s
    npm install
    ```
 
-3. create .env file and add
+3. create .env file in root of the project and add
 
       ```bash
       URI = get the mongodb uri from your account to connect
